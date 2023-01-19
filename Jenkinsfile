@@ -36,7 +36,8 @@ pipeline {
 	}
 	stage('Run') {
 		steps {
-			bat 'docker run -p 3000:3000 20120375/mmt-nc:":${env.BUILD_ID}"'
+			name_image = registry + ":${env.BUILD_ID}"
+			bat 'docker run -p 3000:3000 "${name_image}"
 		}
 	}  
 	}
