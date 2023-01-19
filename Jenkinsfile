@@ -46,13 +46,14 @@ pipeline {
                   dockerImage = docker.build("${img}")
                
 				//sh 'docker build -t mmtnc:latest .'
-			}}
+			}
+			}
 		
 		}
+	    
 	stage('Push') {
 
 		steps {
-				//sh 'docker push 20120375/mmt-nc'
                 	script {
                    		docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
                         	dockerImage.push()
@@ -68,49 +69,7 @@ pipeline {
 			sh 'docker run -p 3000:3000 20120375/mmt-nc:latest'
 			}
 		}
-
-
-
-        //stage('Test - Run Docker Container on Jenkins node') {
-           //steps {
-
-                //sh label: '', script: "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-         // }
-        //}
-
-       // stage('Push To DockerHub') {
-           // steps {
-                //script {
-                    //docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
-                       // dockerImage.push()
-                   // }
-                //}
-           // }
-       // }
-
-        //stage('Deploy to Test Server') {
-           // steps {
-                //script {
-                   // def port = '5000'
-                  //  def stopcontainer = "docker stop ${JOB_NAME}"
-                   // def delcontName = "docker rm ${JOB_NAME}"
-                   // def delimages = 'docker image prune -a --force'
-                   // def drun = "docker run -d --name ${JOB_NAME} -p ${port}:${port} ${img}"
-                  //  def ip = "192.168.1.16"
-                   // println "${drun}"
-                   // sshagent(['docker-test']) {
-                       // sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${stopcontainer} "
-                       // sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${delcontName}"
-                       // sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${delimages}"
-
-                    // some block
-                      //  sh "ssh -o StrictHostKeyChecking=no docker@${ip} ${drun}"
-                  //  }
-               // }
-           // }
-       // }
-
-
     
+}
 }
 }
