@@ -53,23 +53,23 @@ pipeline {
 		
 		
 
-		stage('Push') {
+	stage('Push') {
 
-			steps {
+		steps {
 				//sh 'docker push 20120375/mmt-nc'
-                script {
-                    docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
-                        dockerImage.push()
-                    }
+                	script {
+                   		docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
+                        	dockerImage.push()
+                   		 }
 			}
 		}
 			
 		
 		
-		stage('Run') {
+	stage('Run') {
 
-			steps {
-				sh 'docker run -p 3000:3000 20120375/mmt-nc:latest'
+		steps {
+			sh 'docker run -p 3000:3000 20120375/mmt-nc:latest'
 			}
 		}
 
