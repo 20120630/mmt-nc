@@ -7,7 +7,7 @@ pipeline {
         registry = "20120375/mmt-nc"
         registryCredential = 'docker-token'
         dockerImage = ''
-        DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+        //DOCKERHUB_CREDENTIALS=credentials('dockerhub')
     }
     agent any
     stages {
