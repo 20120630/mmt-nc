@@ -36,7 +36,8 @@ pipeline {
 	}
 	stage('Run') {
 		steps {
-			bat 'docker run -p 3000:3000 20120375/mmt-nc'
+			//bat 'docker run -p 3000:3000 20120375/mmt-nc'
+			dockerImage.run()
 		}
 	}  
 	}
