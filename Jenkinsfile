@@ -7,6 +7,7 @@ pipeline {
         registry = "20120375/mmt-nc"
         registryCredential = 'docker-token'
         dockerImage = ''
+        DOCKERHUB_CREDENTIALS=credentials('dockerhub')
     }
     agent any
     stages {
@@ -25,15 +26,48 @@ pipeline {
        // }
 
 
-        stage('Build Image') {
-            steps {
+        //stage('Build Image') {
+           // steps {
+            //    script {
+                  //  img = registry + ":${env.BUILD_ID}"
+                   // println ("${img}")
+                   // dockerImage = docker.build("${img}")
+               // }
+           // }
+        //}
+        
+        stage('Build') {
+
+			steps {
+                img = registry + ":${env.BUILD_ID}"
+                 println ("${img}")
+                  dockerImage = docker.build("${img}")
+               
+				//sh 'docker build -t mmtnc:latest .'
+			}
+		}
+		
+		
+		
+
+		stage('Push') {
+
+			steps {
+				//sh 'docker push 20120375/mmt-nc'
                 script {
-                    img = registry + ":${env.BUILD_ID}"
-                    println ("${img}")
-                    dockerImage = docker.build("${img}")
-                }
-            }
-        }
+                    docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
+                        dockerImage.push()
+                    }
+			}
+		}
+		
+		
+		//stage('Run in Container') {
+
+			//steps {
+				//sh 'docker run --publish 3000:3000 --name jenkins-mmt -d --rm 20120375/mmt-nc:latest'
+			//}
+		//}
 
 
 
