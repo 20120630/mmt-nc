@@ -3,7 +3,8 @@ pipeline {
 
 
     environment {
-        registry = "20120630/mmt-nc" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
+        //registry = "20120630/mmt-nc" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
+        registry = "20120375/mmt-nc"
         registryCredential = 'docker-token'
         dockerImage = ''
     }
@@ -36,44 +37,44 @@ pipeline {
 
 
 
-        stage('Test - Run Docker Container on Jenkins node') {
-           steps {
+        //stage('Test - Run Docker Container on Jenkins node') {
+           //steps {
 
-                sh label: '', script: "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-          }
-        }
+                //sh label: '', script: "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
+         // }
+        //}
 
-        stage('Push To DockerHub') {
-            steps {
-                script {
-                    docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
+       // stage('Push To DockerHub') {
+           // steps {
+                //script {
+                    //docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
+                       // dockerImage.push()
+                   // }
+                //}
+           // }
+       // }
 
-        stage('Deploy to Test Server') {
-            steps {
-                script {
-                    def port = '5000'
-                    def stopcontainer = "docker stop ${JOB_NAME}"
-                    def delcontName = "docker rm ${JOB_NAME}"
-                    def delimages = 'docker image prune -a --force'
-                    def drun = "docker run -d --name ${JOB_NAME} -p ${port}:${port} ${img}"
-                    def ip = "192.168.1.16"
-                    println "${drun}"
-                    sshagent(['docker-test']) {
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${stopcontainer} "
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${delcontName}"
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${delimages}"
+        //stage('Deploy to Test Server') {
+           // steps {
+                //script {
+                   // def port = '5000'
+                  //  def stopcontainer = "docker stop ${JOB_NAME}"
+                   // def delcontName = "docker rm ${JOB_NAME}"
+                   // def delimages = 'docker image prune -a --force'
+                   // def drun = "docker run -d --name ${JOB_NAME} -p ${port}:${port} ${img}"
+                  //  def ip = "192.168.1.16"
+                   // println "${drun}"
+                   // sshagent(['docker-test']) {
+                       // sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${stopcontainer} "
+                       // sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${delcontName}"
+                       // sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@${ip} ${delimages}"
 
                     // some block
-                        sh "ssh -o StrictHostKeyChecking=no docker@${ip} ${drun}"
-                    }
-                }
-            }
-        }
+                      //  sh "ssh -o StrictHostKeyChecking=no docker@${ip} ${drun}"
+                  //  }
+               // }
+           // }
+       // }
 
 
     }
