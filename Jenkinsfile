@@ -36,8 +36,8 @@ pipeline {
 	}
 	stage('Run') {
 		steps {
-			name_image = registry + ":${env.BUILD_ID}"
-			bat 'docker run -p 3000:3000 "${name_image}"
+			def name_image = registry + ":${env.BUILD_ID}"
+			bat 'docker run -p 3000:3000 ${name_image}
 		}
 	}  
 	}
