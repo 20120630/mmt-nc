@@ -37,7 +37,7 @@ pipeline {
 	stage('Run') {
 		steps {
 			scirpt {
-			def name_image = registry + ":${env.BUILD_ID}"
+			name_image = registry + ":${env.BUILD_ID}"
 			bat 'docker run -p 3000:3000 ${name_image}'}
 			
 		}
