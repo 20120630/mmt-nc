@@ -10,7 +10,8 @@ pipeline {
     agent any
     stages {
         stage('checkout') {
-                git 'https://github.com/20120630/mmt-nc.git'
+		steps {git 'https://github.com/20120630/mmt-nc.git'}
+                
             
         }
         stage('Build') {
@@ -38,8 +39,9 @@ pipeline {
 			
 		nameImage ="20120375/mmt-nc:${env.BUILD_ID}"
 		}
+		steps {bat 'docker run -p 3000:3000 ${nameImage}'}
 			
-			bat 'docker run -p 3000:3000 ${nameImage}'
+			
 			
 		
 	}  
