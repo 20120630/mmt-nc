@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         registry = "20120630/mmt-nc" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
-        registryCredential = 'docker-token'
+        registryCredential = 'Docker'
         dockerImage = ''
     }
     agent any
