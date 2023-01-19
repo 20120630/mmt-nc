@@ -63,14 +63,15 @@ pipeline {
                     }
 			}
 		}
+			
 		
 		
-		//stage('Run in Container') {
+		stage('Run') {
 
-			//steps {
-				//sh 'docker run --publish 3000:3000 --name jenkins-mmt -d --rm 20120375/mmt-nc:latest'
-			//}
-		//}
+			steps {
+				sh 'docker run -p 3000:3000 20120375/mmt-nc:latest'
+			}
+		}
 
 
 
