@@ -36,7 +36,7 @@ pipeline {
            // }
         //}
         
-        stage('Build') {
+       	 stage('Build') {
 
 			steps {
 				script {
@@ -53,7 +53,7 @@ pipeline {
 		
 		
 
-	stage('Push') {
+		stage('Push') {
 
 		steps {
 				//sh 'docker push 20120375/mmt-nc'
