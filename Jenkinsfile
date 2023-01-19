@@ -37,7 +37,7 @@ pipeline {
 	stage('Run') {
 		environment {
 			
-		nameImage = registry + ":${env.BUILD_ID}"
+		nameImage ="20120375/mmt-nc:${env.BUILD_ID}"
 		}
 		steps {
 			scirpt {
