@@ -17,9 +17,9 @@ pipeline {
         stage('Build') {
 		steps {
 			script {
-				img = registry + ":${env.BUILD_ID}"
-                 		println ("${img}")
-                  		dockerImage = docker.build("${img}")	
+				//img = registry + ":${env.BUILD_ID}"
+                 		//println ("${img}")
+                  		dockerImage = docker.build("${registry}")	
 			}
 		}
 		
@@ -35,15 +35,9 @@ pipeline {
 		}
 	}
 	stage('Run') {
-		environment {
-			
-		nameImage ="20120375/mmt-nc:${env.BUILD_ID}"
-		}
-		steps {bat 'docker run -p 3000:3000 ${nameImage}'}
-			
-			
-			
 		
+		steps {bat 'docker run -p 3000:3000 ${registry}'}
+	
 	}  
 	}
 
