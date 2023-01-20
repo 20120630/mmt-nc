@@ -36,7 +36,7 @@ pipeline {
 	}
 	stage('Run') {
 		
-		steps {bat 'docker run -p 6000:6000 -d 20120375/mmt-nc:latest'}
+		steps {bat 'docker run -p 7000:7000 -d 20120375/mmt-nc:latest'}
 	
 	}  
 	}
